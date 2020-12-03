@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.briup.jz.dao.extend.OrderExtendMapper">
+
+    <select id="selectById" resultMap="OrderExtendResultMap">
+    SELECT
+        o.id as o_id,
+        o.order_time,
+        o.total,
+        o.customer_id,
+        o.employee_id,
+        o.address_id,
+        c.id as c_id,
+        c.realname as c_realname,
+        c.telephone as c_telephone,
+        e.id as e_id,
+        e.realname as e_realname,
+        e.telephone as e_telephone,
+        a.province,
+        a.city,
+        a.area,
+        a.address,
+        a.telephone
+    FROM
+        jz_order o
+    LEFT JOIN base_user c
+
+    ON o.customer_id = c.id
+
+    LEFT JOIN base_user e
+
+    ON o.employee_id = e.id
+
+    LEFT JOIN jz_address a
+
+    ON o.address_id = a.id
+
+    WHERE
+        o.id = #{id}
+  </select>
+
+    <resultMap id="OrderExtendResultMap"
+               type="com.briup.jz.bean.extend.OrderExtend">
+        <!--<id column="o_id" property="id" jdbcType="BIGINT"/>
+        <result property="orderTime" jdbcType="BIGINT" column="order_time"></result>
+        <result property="total" jdbcType="DOUBLE" column="total"></result>
+        <result property="status" column="status"></result>
+        <result property="customerId" column="customer_id" jdbcType="BIGINT"/>
+        <result property="employeeId" column="employee_id" jdbcType="BIGINT"/>
+        <result property="addressId" column="address_id" jdbcType="BIGINT"/>-->
+        <association property="customer"
+                     column="customer_id"
+                     select="com.briup.jz.dao.UserMapper.selectByPrimaryKey"
+        />
+        <association property="employee"
+                     column="employee_id"
+                     select="com.briup.jz.dao.UserMapper.selectByPrimaryKey"
+        />
+      <association property="address" javaType="com.briup.jz.bean.Address">
+        <id property="id" column="a_id" jdbcType="BIGINT"></id>
+        <result property="address" column="address" jdbcType="VARCHAR"></result>
+        <result property="area" column="area" jdbcType="VARCHAR"></result>
+        <result property="city" column="city" jdbcType="VARCHAR"></result>
+        <result property="province" column="province" jdbcType="VARCHAR"></result>
+        <result property="telephone" column="telephone" jdbcType="VARCHAR"></result>
+      </association>
+    </resultMap>
+
+</mapper>

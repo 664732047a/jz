@@ -6,6 +6,7 @@ import com.briup.jz.bean.extend.ProductExtend;
 import com.briup.jz.dao.ProductMapper;
 import com.briup.jz.dao.extend.ProductExtendMapper;
 import com.briup.jz.service.IProductService;
+import com.briup.jz.utils.CustomerException;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -26,7 +27,7 @@ public class IProductServiceImpl implements IProductService {
     }
 
     @Override
-    public void saveOrUpdate(Product product) {
+    public void saveOrUpdate(Product product)throws CustomerException {
         if(product.getId() != null){
             productMapper.updateByPrimaryKey(product);
         }else {
@@ -35,7 +36,11 @@ public class IProductServiceImpl implements IProductService {
     }
 
     @Override
-    public void deleteById(long id) {
+    public void deleteById(long id) throws CustomerException{
+        Product product = productMapper.selectByPrimaryKey(id);
+        if(product == null){
+            throw new CustomerException("删除失败，要删除的数据不存在");
+        }
         productMapper.deleteByPrimaryKey(id);
     }
 
