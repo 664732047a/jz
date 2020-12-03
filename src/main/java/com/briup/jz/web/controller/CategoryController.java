@@ -3,6 +3,8 @@ package com.briup.jz.web.controller;
 import com.briup.jz.bean.Category;
 import com.briup.jz.bean.extend.CategoryExtend;
 import com.briup.jz.service.ICategoryService;
+import com.briup.jz.utils.Message;
+import com.briup.jz.utils.MessageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,24 +20,24 @@ public class CategoryController {
     private ICategoryService categoryService;
 
     @GetMapping("findAll")
-    public List<Category> findAll(){
-        return categoryService.findAll();
+    public Message findAll(){
+        return MessageUtil.success(categoryService.findAll());
     };
 
     @PostMapping("saveOrUpdate")
-    public String saveOrUpdate(Category category){
+    public Message saveOrUpdate(Category category){
         categoryService.saveOrUpdate(category);
-        return "保存成功";
+        return MessageUtil.success("保存成功");
     }
 
     @GetMapping("deleteById")
-    public String deleteById(long id){
+    public Message deleteById(long id){
         categoryService.deleteById(id);
-        return "删除成功";
+        return MessageUtil.success("删除成功");
     }
 
     @GetMapping("findAllWithChild")
-    public List<CategoryExtend> findAllWithChild(){
-        return categoryService.findAllWithChild();
+    public Message findAllWithChild(){
+        return MessageUtil.success(categoryService.findAllWithChild());
     }
 }
