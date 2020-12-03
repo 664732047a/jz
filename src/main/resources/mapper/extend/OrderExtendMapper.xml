@@ -64,6 +64,8 @@
         <result property="province" column="province" jdbcType="VARCHAR"></result>
         <result property="telephone" column="telephone" jdbcType="VARCHAR"></result>
       </association>
+        
+        <collection property="orderLine" column="o_id" select="com.briup.jz.dao.extend.OrderLineExtendMapper.selectByOrderId"></collection>
     </resultMap>
 
 </mapper>
