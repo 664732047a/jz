@@ -5,6 +5,11 @@
   <select id="selectAllRole" resultMap="UserExtendResultMap">
     SELECT * FROM base_user
   </select>
+  
+  <select id="selectAllEmployee" resultMap="UserExtendResultMap">
+    select * from base_user
+    where role_id = 3
+  </select>
 
   <resultMap id="UserExtendResultMap"
              type="com.briup.jz.bean.extend.UserExtend"

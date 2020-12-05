@@ -8,9 +8,13 @@ import java.util.List;
 public interface IUserService {
     List<User> findAll();
 
+    List<UserExtend> findAllEmployee();
+
     void saveOrUpdate(User user);
 
     void deleteById(long id);
 
     List<UserExtend> selectAllRole();
+
+    User findById(long id);
 }

@@ -26,6 +26,11 @@ public class IUserServiceImpl implements IUserService {
     }
 
     @Override
+    public List<UserExtend> findAllEmployee() {
+        return userExtendMapper.selectAllEmployee();
+    }
+
+    @Override
     public void saveOrUpdate(User user) {
         if(user.getId() != null){
             userMapper.updateByPrimaryKey(user);
@@ -44,4 +49,10 @@ public class IUserServiceImpl implements IUserService {
     public List<UserExtend> selectAllRole() {
         return userExtendMapper.selectAllRole();
     }
+
+    @Override
+    public User findById(long id) {
+        return userMapper.selectByPrimaryKey(id);
+    }
+
 }
